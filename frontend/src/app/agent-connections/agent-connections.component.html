@@ -1,0 +1,32 @@
+<p-table [value]="agentConnections" [lazy]="true" (onLazyLoad)="load()" [paginator]="true" [rows]="totalRecords" [totalRecords]="totalRecords" [loading]="loading" styleClass="p-datatable-striped">
+    <ng-template pTemplate="header">
+        <tr>
+            <th width="400">{{'Connection Id' | translate }}</th>
+            <th>{{'Nom' | translate }}</th> 
+            <th>{{'CreationDateLabel' | translate }}</th>
+            <th style="width: 1rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-schemaId let-rowIndex="rowIndex">
+        <tr>
+            <td>{{schemaId.id}}</td>
+            <td>{{schemaId.theirLabel || "Undefined"}}</td>
+            <td>{{schemaId.createdAt | date: 'medium'}}</td>
+            <td>
+                <button pButton pRipple icon="fa fa-eye" class="p-button-rounded p-button-success mr-2" (click)="viewDetails(rowIndex)" label=""></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-dialog header="{{'Connection' | translate }}" [(visible)]="agentConnectionDetailsDialogVisible" [closable]="false" showEffect="fade" [modal]="true" appendTo="body" [style]="{width: '700px'}">
+    <div *ngIf="agentConnectionDetailsDialogVisible">
+        <div class="grid">
+            <div class="col-12">
+                <pre [innerHTML]="connectionDetails"></pre>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="{{'OkLabel' | translate }}"></button>
+    </p-footer>
+</p-dialog>
