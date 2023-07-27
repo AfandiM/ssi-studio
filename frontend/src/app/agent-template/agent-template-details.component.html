@@ -10,6 +10,9 @@
         <chat></chat>
     </p-tabPanel>
     <p-tabPanel header="{{'EventsLabel' | translate }}">
-        <agent-event></agent-event>
+        <agent-event [name]="agentTemplate.name"></agent-event>
+    </p-tabPanel>
+    <p-tabPanel header="{{'Connections' | translate }}">
+        <agent-connections [agentTemplate]="agentTemplate"></agent-connections>
     </p-tabPanel>
 </p-tabView>

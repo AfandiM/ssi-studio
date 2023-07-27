@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AgentEvent } from '../models/agent-event';
 import { AgentEventService } from '../services/agent-event.service';
 import { prettyPrintJson } from 'pretty-print-json';
 import { TableLazyLoadEvent } from 'primeng/table';
+
 
 @Component({
   selector: 'agent-event',
@@ -12,6 +12,8 @@ import { TableLazyLoadEvent } from 'primeng/table';
   styleUrls: ['./agent-event.component.css']
 })
 export class AgentEventComponent implements OnInit, OnDestroy {
+
+  @Input() name: string = "";
 
   agentEvents: AgentEvent[] = [];
 
@@ -44,7 +46,7 @@ export class AgentEventComponent implements OnInit, OnDestroy {
   loadAgentEvents(event: TableLazyLoadEvent) {  
     this.loading = true;
 
-    this.agentEventService.getByAgentSlug('bls2', event.first, event.rows).pipe(takeUntil(this.ngUnsubscribe)).subscribe(agentEventResult => {
+    this.agentEventService.getByAgentSlug("faber", event.first, event.rows).pipe(takeUntil(this.ngUnsubscribe)).subscribe(agentEventResult => {
       this.agentEvents = agentEventResult.agentEvents;
       this.totalRecords = agentEventResult.total;
       this.loading = false;

@@ -113,6 +113,37 @@ export class ConnectionService {
     }));
   }
 
+  getAll(agent: AgentTemplate): Observable<Connection[]> {
+    const header = agent.apiKey ? new HttpHeaders({'x-api-key': agent.apiKey}) : new HttpHeaders();
+    return this.http.get<any>(`${agent.url}/connections`, { headers: header }).pipe(map(dtos => {
+      const connections: Connection[] = [];
+      for (const dto of dtos.results) {
+        connections.push({
+          accept: dto.accept,
+          id: dto.connection_id,
+          createdAt: dto.created_at,
+          invitationKey: dto.invitation_key,
+          invitationMode: dto.invitation_mode,
+          myDid: dto.my_did,
+          rfc23State: dto.rfc23_state,
+          routingState: dto.routing_state,
+          state: dto.state,
+          theirDid: dto.their_did,
+          theirLabel: dto.their_label,
+          theirRole: dto.their_role,
+          updatedAt:dto.updated_at,
+          alias: dto.alias,
+          errorMessage: dto.error_msg,
+          inboundConnectionId: dto.inbound_connection_id,
+          invitationMessageId: dto.invitation_msg_id,
+          requestId: dto.request_id,
+          theirPublicDid: dto.their_public_did,
+        });
+      }
+      return connections;
+    }));
+  }
+
   accept(agent: AgentTemplate, id: string, myEndpoint: string = ''): Observable<Connection> {
     let query = '';
     if (myEndpoint && myEndpoint !== '') query += '?my_endpoint=' + myEndpoint;

@@ -91,6 +91,7 @@ import { MyService } from './services/my.service';
 import { ChatComponent } from './agent-template/chat.component';
 import { AgentEventService } from './services/agent-event.service';
 import { AgentEventComponent } from './agent-event/agent-event.component';
+import { AgentConnectionsComponent} from './agent-connections/agent-connections.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { AgentEventComponent } from './agent-event/agent-event.component';
     IssueCredentialComponent,
     AgentConfigComponent,
     AgentEventComponent,
+    AgentConnectionsComponent,
     SchemaEditorComponent,
     OcaEditorComponent,
     LaboratoryListComponent,
